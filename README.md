@@ -1,2 +1,2 @@
 # mini-project
-## Manajemen Informasi Matakuliah
+## Manajemen Informasi Jadwal Matakuliah
