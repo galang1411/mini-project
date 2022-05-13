@@ -2,7 +2,7 @@ services:
 
   app:
     build: .
-    # image: gofrendi/app-mock2
+    # build image
     restart: unless-stopped
     depends_on:
       db:
@@ -15,7 +15,7 @@ services:
 
   db:
     image: bitnami/mysql
-    # selalu restart container ini, kecuali container nya di stop
+    
     restart: unless-stopped
     ports:
       - 3307:3306
