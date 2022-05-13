@@ -24,7 +24,7 @@ services:
       - MYSQL_DATABASE=mini_p
     healthcheck:
       # perintah untuk memastikan bahwa mysql sudah ready
-      mini_p: ["CMD", "mysql", "-u", "root",  "-pgromizk123", "-e", "show schemas"]
+      test: ["CMD", "mysql", "-u", "root",  "-pgromizk123", "-e", "show schemas"]
       interval: 10s 
 
   adminer:
