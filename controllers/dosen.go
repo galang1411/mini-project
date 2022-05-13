@@ -1,16 +1,18 @@
 package controllers
 
 import (
+	"fmt"
 	"mini-project/config"
 	"mini-project/helper"
 	"mini-project/models"
+
 	"net/http"
 	"strconv"
 
 	"github.com/labstack/echo/v4"
 )
 
-// get all dosens
+// get all dosen
 func GetDosenscontrollers(c echo.Context) error {
 	var dosen []models.Dosen
 	if err := config.DB.Find(&dosen).Error; err != nil {
@@ -53,7 +55,7 @@ func CreateDosencontrollers(c echo.Context) error {
 func DeleteDosencontrollers(c echo.Context) error {
 	nid, _ := strconv.Atoi(c.Param("nid"))
 	dosen := models.Dosen{}
-	if err := config.DB.Table("dosens").First(&dosen, nid).Error; err != nil {
+	if err := config.DB.Where("nid = ?", nid).First(&dosen).Error; err != nil {
 		if err.Error() == "record not found" {
 			return c.JSON(http.StatusNotFound, map[string]interface{}{
 				"message": "dosen not found",
@@ -63,7 +65,7 @@ func DeleteDosencontrollers(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	if err := config.DB.Delete(&dosen).Error; err != nil {
+	if err := config.DB.Where("nid = ?", nid).Delete(&dosen).Error; err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
@@ -75,7 +77,7 @@ func UpdateDosencontrollers(c echo.Context) error {
 	nid := c.Param("nid")
 	dosen := models.Dosen{}
 
-	if err := config.DB.First(&dosen, nid).Error; err != nil {
+	if err := config.DB.First(&dosen, "nid = ?", nid).Error; err != nil {
 		if err.Error() == "record not found" {
 			return c.JSON(http.StatusNotFound, map[string]interface{}{
 				"message": "dosen not found",
@@ -87,11 +89,11 @@ func UpdateDosencontrollers(c echo.Context) error {
 
 	newdosen := models.Dosen{}
 	c.Bind(&newdosen)
-
+	fmt.Println("dosen", dosen)
 	dosen.Name = newdosen.Name
 	dosen.Gender = newdosen.Gender
 	dosen.Major = newdosen.Major
-	if err := config.DB.Save(&dosen).Error; err != nil {
+	if err := config.DB.Where("nid = ?", nid).Save(&dosen).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 

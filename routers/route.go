@@ -16,26 +16,31 @@ func Router() *echo.Echo {
 
 	e.POST("/login", controllers.LoginController)
 	// Route to Dosen handler function
-	eJwt.GET("/dosen", controllers.GetDosenscontrollers)
+	e.GET("/dosen", controllers.GetDosenscontrollers)
 	e.GET("/dosen/:nid", controllers.GetDosencontrollers)
 	e.POST("/dosen", controllers.CreateDosencontrollers)
 	e.DELETE("/dosen/:nid", controllers.DeleteDosencontrollers)
 	e.PUT("dosen/:nid", controllers.UpdateDosencontrollers)
 
 	// Route to matkul handler function
-	eJwt.GET("/matkul", controllers.GetMatkulscontrollers)
+	e.GET("/matkul", controllers.GetMatkulscontrollers)
 	e.GET("/matkul/:id", controllers.GetMatkulcontrollers)
 	e.POST("/matkul", controllers.CreateMatkulcontrollers)
 	e.DELETE("/matkul/:id", controllers.DeleteMatkulcontrollers)
 	e.PUT("matkul/:id", controllers.UpdateMatkulcontrollers)
 
 	// Route to ruangan handler function
-	eJwt.GET("/ruangan", controllers.GetRuanganscontrollers)
+	e.GET("/ruangan", controllers.GetRuanganscontrollers)
 	e.GET("/ruangan/:id", controllers.GetRuangancontrollers)
 	e.POST("/ruangan", controllers.CreateRuangancontrollers)
 	e.DELETE("/ruangan/:id", controllers.DeleteRuangancontrollers)
 	e.PUT("ruangan/:id", controllers.UpdateRuangancontrollers)
 
 	e.GET("/jadwal", controllers.GetJadwalscontrollers)
+	e.GET("/jadwal/:hari", controllers.GetHariJadwalHaricontrollers)
+	e.GET("/jadwal/:id", controllers.GetJadwalcontrollers)
+	e.POST("/jadwal", controllers.CreateJadwalscontrollers)
+	e.PUT("/jadwal/:id", controllers.UpdateJadwalcontrollers)
+	e.DELETE("/jadwal/:id", controllers.DeleteJadwalcontrollers)
 	return e
 }

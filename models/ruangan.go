@@ -9,7 +9,7 @@ import (
 type Ruangan struct {
 	ID        uint           `gorm:"column:id" json:"id"`
 	Name      string         `gorm:"column:nama" json:"nama"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	DeletedAt gorm.DeletedAt `gorm:"index"`
+	CreatedAt time.Time      `json:"-"`
+	UpdatedAt time.Time      `json:"-"`
+	DeletedAt gorm.DeletedAt `json:"-" gorm:"index"`
 }

@@ -17,7 +17,7 @@ func GetMatkulscontrollers(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, helper.BuildResponse("success get all matkuls", matkuls))
+	return c.JSON(http.StatusOK, helper.BuildResponse("success get all matakuliah", matkuls))
 }
 
 // get matkul by id
@@ -34,7 +34,7 @@ func GetMatkulcontrollers(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, helper.BuildResponse("success get matkul", matkul))
+	return c.JSON(http.StatusOK, helper.BuildResponse("success get matakuliah", matkul))
 }
 
 // create matkul by id
@@ -46,14 +46,14 @@ func CreateMatkulcontrollers(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusCreated, helper.BuildResponse("success create new user", matkul))
+	return c.JSON(http.StatusCreated, helper.BuildResponse("success create new matakuliah", matkul))
 }
 
 // delete matkul by id
 func DeleteMatkulcontrollers(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 	matkul := models.Matakuliah{}
-	if err := config.DB.Table("matakuliahs").First(&matkul, id).Error; err != nil {
+	if err := config.DB.Table("matakuliah").First(&matkul, id).Error; err != nil {
 		if err.Error() == "record not found" {
 			return c.JSON(http.StatusNotFound, map[string]interface{}{
 				"message": "matkul not found",
@@ -67,7 +67,7 @@ func DeleteMatkulcontrollers(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, helper.BuildResponse("matkul deleted successfully", matkul))
+	return c.JSON(http.StatusOK, helper.BuildResponse("matakuliah deleted successfully", matkul))
 }
 
 // update matkul by id

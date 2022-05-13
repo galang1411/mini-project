@@ -11,7 +11,7 @@ type Matakuliah struct {
 	Name      string         `gorm:"column:nama" json:"nama"`
 	SKS       int            `gorm:"column:sks" json:"sks"`
 	Semester  int            `gorm:"column: semester" json:"semester"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	DeletedAt gorm.DeletedAt `gorm:"index"`
+	CreatedAt time.Time      `json:"-"`
+	UpdatedAt time.Time      `json:"-"`
+	DeletedAt gorm.DeletedAt `json:"-" gorm:"index"`
 }
