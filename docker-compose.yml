@@ -14,7 +14,7 @@ services:
 
   db:
     image: bitnami/mysql
-    
+    #test
     restart: unless-stopped
     ports:
       - 3307:3306
