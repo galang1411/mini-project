@@ -2,7 +2,6 @@ services:
 
   app:
     build: .
-    # image: gofrendi/app-mock2
     restart: unless-stopped
     depends_on:
       db:
