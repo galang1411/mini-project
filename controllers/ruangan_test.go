@@ -14,7 +14,7 @@ import (
 )
 
 func InitEchoTestRuangan() *echo.Echo {
-	config.InitDB()
+	config.InitDBTest()
 	e := echo.New()
 	return e
 }
