@@ -43,4 +43,6 @@ func Router() *echo.Echo {
 	e.PUT("/jadwal/:id", controllers.UpdateJadwalcontrollers)
 	e.DELETE("/jadwal/:id", controllers.DeleteJadwalcontrollers)
 	return e
+
+	// go test ./controllers -coverprofile=coverage.out
 }
