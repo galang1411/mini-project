@@ -58,7 +58,7 @@ func TestCreateDosenController(t *testing.T) {
 
 	e := InitEchoTestDosen()
 	dosen := `{"nid": 67676868, "nama": "Alta", "jenis_kelamin": "L", "jurusan" : "IT"}`
-	req := httptest.NewRequest(http.MethodPost, "/users", strings.NewReader(dosen))
+	req := httptest.NewRequest(http.MethodPost, "/dosen", strings.NewReader(dosen))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)

@@ -18,10 +18,11 @@ func GetJadwalscontrollers(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, helper.BuildResponse("success get all jadwal", jadwal))
 }
-func GetJadwalcontrollers(c echo.Context) error {
-	id, _ := strconv.Atoi(c.Param("id"))
+
+func GetHariJadwalHaricontrollers(c echo.Context) error {
+	hari := c.Param("hari")
 	jadwal := models.Jadwal{}
-	if err := config.DB.First(&jadwal, id).Model(&jadwal).Debug().Preload("Matakuliah").Preload("Dosen").Preload("Ruangan").Error; err != nil {
+	if err := config.DB.Where("hari = ?", hari).Debug().First(&jadwal).Model(&jadwal).Debug().Preload("Matakuliah").Preload("Dosen").Preload("Ruangan").Find(&jadwal).Error; err != nil {
 		if err.Error() == "record not found" {
 			return c.JSON(http.StatusNotFound, map[string]interface{}{
 				"message": "jadwal not found",
@@ -33,14 +34,21 @@ func GetJadwalcontrollers(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, helper.BuildResponse("success get jadwal", jadwal))
 }
-func GetHariJadwalHaricontrollers(c echo.Context) error {
-	hari := c.Param("hari")
+
+func GetJadwalIDcontrollers(c echo.Context) error {
+	id, _ := strconv.Atoi(c.Param("id"))
 	jadwal := models.Jadwal{}
-	if err := config.DB.Where("hari = ?", hari).Model(&jadwal).Debug().Preload("Matakuliah").Preload("Dosen").Preload("Ruangan").Find(&jadwal).Error; err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	if err := config.DB.Model(&jadwal).Debug().Preload("Matakuliah").Preload("Dosen").Preload("Ruangan").Debug().Where("id", id).Debug().Error; err != nil {
+		if err.Error() == "record not found" {
+			return c.JSON(http.StatusNotFound, map[string]interface{}{
+				"message": "jadwal not found",
+			})
+		}
+
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, helper.BuildResponse("success get jadwal by day", jadwal))
+	return c.JSON(http.StatusOK, helper.BuildResponse("success get jadwal", jadwal))
 }
 
 func CreateJadwalscontrollers(c echo.Context) error {

@@ -38,7 +38,7 @@ func Router() *echo.Echo {
 
 	e.GET("/jadwal", controllers.GetJadwalscontrollers)
 	e.GET("/jadwal/:hari", controllers.GetHariJadwalHaricontrollers)
-	e.GET("/jadwal/:id", controllers.GetJadwalcontrollers)
+	e.GET("/jadwal/:id", controllers.GetJadwalIDcontrollers)
 	e.POST("/jadwal", controllers.CreateJadwalscontrollers)
 	e.PUT("/jadwal/:id", controllers.UpdateJadwalcontrollers)
 	e.DELETE("/jadwal/:id", controllers.DeleteJadwalcontrollers)
