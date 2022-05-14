@@ -1,8 +1,6 @@
 package controllers
 
 import (
-	"encoding/json"
-	"fmt"
 	"mini-project/config"
 	"mini-project/models"
 	"net/http"
@@ -25,25 +23,25 @@ type OperatorResponse struct {
 	Data    []models.Operator
 }
 
-func GetToken() string {
-	e := InitEchoTestOperator()
-	InsertDataUserForGetOperator()
-	operator := `{"username": "Alta", "password": "123"}`
-	req := httptest.NewRequest(http.MethodPost, "/login", strings.NewReader(operator))
-	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
-	rec := httptest.NewRecorder()
-	c := e.NewContext(req, rec)
-	c.SetPath("/login")
-	LoginController(c)
+// func GetToken() string {
+// 	e := InitEchoTestOperator()
+// 	InsertDataUserForGetOperator()
+// 	operator := `{"username": "Alta", "password": "123"}`
+// 	req := httptest.NewRequest(http.MethodPost, "/login", strings.NewReader(operator))
+// 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+// 	rec := httptest.NewRecorder()
+// 	c := e.NewContext(req, rec)
+// 	c.SetPath("/login")
+// 	LoginController(c)
 
-	body := rec.Body.String()
+// 	body := rec.Body.String()
 
-	var response models.Token
+// 	var response models.Token
 
-	_ = json.Unmarshal([]byte(body), &response)
+// 	_ = json.Unmarshal([]byte(body), &response)
 
-	return fmt.Sprintf("Bearer %s", response.Token)
-}
+// 	return fmt.Sprintf("Bearer %s", response.Token)
+// }
 
 func InsertDataUserForGetOperator() error {
 	operator := models.Operator{

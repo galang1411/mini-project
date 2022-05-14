@@ -46,7 +46,7 @@ func CreateRuangancontrollers(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusCreated, helper.BuildResponse("success create new user", ruangan))
+	return c.JSON(http.StatusCreated, helper.BuildResponse("success create new ruangan", ruangan))
 }
 
 // delete ruangan by id
