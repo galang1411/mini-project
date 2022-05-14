@@ -14,7 +14,7 @@ services:
 
   db:
     image: bitnami/mysql
-    # selalu restart container ini, kecuali container nya di stop
+    
     restart: unless-stopped
     ports:
       - 3307:3306
