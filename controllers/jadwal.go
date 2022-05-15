@@ -50,7 +50,7 @@ func GetJadwalIDcontrollers(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, helper.BuildResponse("success get jadwal", jadwal))
 }
-
+//
 func CreateJadwalscontrollers(c echo.Context) error {
 	jadwal := models.InsertJadwal{}
 	c.Bind(&jadwal)
