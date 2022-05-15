@@ -20,7 +20,7 @@ type Jadwal struct {
 	UpdatedAt    time.Time
 	DeletedAt    gorm.DeletedAt `gorm:"index"`
 }
-
+//
 type InsertJadwal struct {
 	Hari       string `json:"hari" gorm:"column:hari"`
 	Time       string `json:"time" gorm:"column:waktu"`
