@@ -15,6 +15,6 @@ jobs:
         script: |
           cd mini-project
           git pull
-          go test -v ./...
+          go test ./controllers -coverprofile=coverage.out
           docker-compose down && docker-compose up --build -d
           docker image prune -f
