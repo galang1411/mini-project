@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"mini-project/config"
 	"mini-project/helper"
 	"mini-project/models"
@@ -20,9 +21,10 @@ func GetJadwalscontrollers(c echo.Context) error {
 }
 
 func GetHariJadwalHaricontrollers(c echo.Context) error {
+	fmt.Println("GetHariJadwalHaricontrollers")
 	hari := c.Param("hari")
 	jadwal := models.Jadwal{}
-	if err := config.DB.Where("hari = ?", hari).Debug().First(&jadwal).Model(&jadwal).Debug().Preload("Matakuliah").Preload("Dosen").Preload("Ruangan").Find(&jadwal).Error; err != nil {
+	if err := config.DB.Model(&jadwal).Debug().Where("hari", hari).Preload("Matakuliah").Preload("Dosen").Preload("Ruangan").Find(&jadwal).Error; err != nil {
 		if err.Error() == "record not found" {
 			return c.JSON(http.StatusNotFound, map[string]interface{}{
 				"message": "jadwal not found",
@@ -36,9 +38,10 @@ func GetHariJadwalHaricontrollers(c echo.Context) error {
 }
 
 func GetJadwalIDcontrollers(c echo.Context) error {
+	fmt.Println("GetHariJadwalIDcontrollers")
 	id, _ := strconv.Atoi(c.Param("id"))
 	jadwal := models.Jadwal{}
-	if err := config.DB.Model(&jadwal).Debug().Preload("Matakuliah").Preload("Dosen").Preload("Ruangan").Debug().Where("id", id).Debug().Error; err != nil {
+	if err := config.DB.Where("id", id).Debug().Model(&jadwal).Debug().Preload("Matakuliah").Preload("Dosen").Preload("Ruangan").Debug().Error; err != nil {
 		if err.Error() == "record not found" {
 			return c.JSON(http.StatusNotFound, map[string]interface{}{
 				"message": "jadwal not found",
@@ -52,10 +55,10 @@ func GetJadwalIDcontrollers(c echo.Context) error {
 }
 
 func CreateJadwalscontrollers(c echo.Context) error {
-	jadwal := models.Jadwal{}
+	jadwal := models.InsertJadwal{}
 	c.Bind(&jadwal)
 
-	if err := config.DB.Model(&jadwal).Debug().Preload("Matakuliah").Preload("Dosen").Preload("Ruangan").Debug().Create(&jadwal).Error; err != nil {
+	if err := config.DB.Table("jadwal").Create(&jadwal).Error; err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
@@ -84,9 +87,9 @@ func DeleteJadwalcontrollers(c echo.Context) error {
 
 func UpdateJadwalcontrollers(c echo.Context) error {
 	id := c.Param("id")
-	jadwal := models.Jadwal{}
+	jadwal := models.InsertJadwal{}
 
-	if err := config.DB.First(&jadwal, id).Error; err != nil {
+	if err := config.DB.Table("jadwal").First(&jadwal, id).Error; err != nil {
 		if err.Error() == "record not found" {
 			return c.JSON(http.StatusNotFound, map[string]interface{}{
 				"message": "jadwal not found",
@@ -96,14 +99,14 @@ func UpdateJadwalcontrollers(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	newjadwal := models.Jadwal{}
+	newjadwal := models.InsertJadwal{}
 	c.Bind(&newjadwal)
 
 	jadwal.Time = newjadwal.Time
-	jadwal.Day = newjadwal.Day
-	jadwal.IdMatakuliah = newjadwal.IdMatakuliah
-	jadwal.NidDosen = newjadwal.NidDosen
-	jadwal.IdRuangan = newjadwal.IdRuangan
+	jadwal.Hari = newjadwal.Hari
+	jadwal.Dosen = newjadwal.Dosen
+	jadwal.Ruangan = newjadwal.Ruangan
+	jadwal.Ruangan = newjadwal.Ruangan
 	if err := config.DB.Save(&jadwal).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}

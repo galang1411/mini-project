@@ -21,6 +21,14 @@ type Jadwal struct {
 	DeletedAt    gorm.DeletedAt `gorm:"index"`
 }
 
+type InsertJadwal struct {
+	Hari       string `json:"hari" gorm:"column:hari"`
+	Time       string `json:"time" gorm:"column:waktu"`
+	Matakuliah int    `json:"matakuliah" gorm:"column:id_matakuliah"`
+	Dosen      int64  `json:"dosen" gorm:"column:nid_dosen"`
+	Ruangan    int    `json:"ruangan" gorm:"column:id_ruangan"`
+}
+
 func (Jadwal) TableName() string {
 	return "jadwal"
 }
