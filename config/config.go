@@ -12,7 +12,7 @@ var DB *gorm.DB
 
 func init() {
 	InitDB()
-	InitialMigration()
+	// InitialMigration()
 }
 
 type Config struct {
@@ -48,11 +48,11 @@ func InitDB() {
 	}
 }
 
-func InitialMigration() {
-	DB.AutoMigrate(&models.Dosen{})
-	DB.AutoMigrate(&models.Matakuliah{})
-	DB.AutoMigrate(&models.Ruangan{})
-}
+// func InitialMigration() {
+// 	DB.AutoMigrate(&models.Dosen{})
+// 	DB.AutoMigrate(&models.Matakuliah{})
+// 	DB.AutoMigrate(&models.Ruangan{})
+// }
 
 type configTest struct {
 	DB_User_Test string
