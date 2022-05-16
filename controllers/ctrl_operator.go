@@ -16,7 +16,7 @@ func LoginController(c echo.Context) error {
 	if err := config.DB.Table("operator").Where("username = ? AND password = ?", operator.Username, operator.Password).First(&operator).Error; err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
-
+	//
 	token, err := middleware.CreateToken(operator.ID, operator.Username)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
