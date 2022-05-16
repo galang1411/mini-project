@@ -62,7 +62,7 @@ func TestPersonLogin(t *testing.T) {
 		t.Errorf("should not get error, get error: %s", err)
 		return
 	}
-
+	//
 	// compare status
 	if rec.Code != 200 {
 		t.Errorf("should return 200, get: %d", rec.Code)
