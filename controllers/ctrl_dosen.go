@@ -77,7 +77,7 @@ func UpdateDosencontrollers(c echo.Context) error {
 	nid := c.Param("nid")
 	dosen := models.Dosen{}
 
-	if err := config.DB.First(&dosen, "nid = ?", nid).Error; err != nil {
+	if err := config.DB.Table("dosen").First(&dosen, "nid = ?", nid).Error; err != nil {
 		if err.Error() == "record not found" {
 			return c.JSON(http.StatusNotFound, map[string]interface{}{
 				"message": "dosen not found",
@@ -93,7 +93,7 @@ func UpdateDosencontrollers(c echo.Context) error {
 	dosen.Name = newdosen.Name
 	dosen.Gender = newdosen.Gender
 	dosen.Major = newdosen.Major
-	if err := config.DB.Where("nid = ?", nid).Save(&dosen).Error; err != nil {
+	if err := config.DB.Table("dosen").Where("nid = ?", nid).Save(&dosen).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 

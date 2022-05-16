@@ -75,7 +75,7 @@ func UpdateRuangancontrollers(c echo.Context) error {
 	id := c.Param("id")
 	ruangan := models.Ruangan{}
 
-	if err := config.DB.First(&ruangan, id).Error; err != nil {
+	if err := config.DB.Table("ruangan").First(&ruangan, id).Error; err != nil {
 		if err.Error() == "record not found" {
 			return c.JSON(http.StatusNotFound, map[string]interface{}{
 				"message": "ruangan not found",
@@ -90,7 +90,7 @@ func UpdateRuangancontrollers(c echo.Context) error {
 
 	ruangan.Name = newruangan.Name
 
-	if err := config.DB.Save(&ruangan).Error; err != nil {
+	if err := config.DB.Table("ruangan").Save(&ruangan).Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
