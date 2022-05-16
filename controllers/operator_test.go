@@ -1,15 +1,15 @@
 package controllers
 
 import (
+	"bytes"
+	"encoding/json"
 	"mini-project/config"
 	"mini-project/models"
 	"net/http"
 	"net/http/httptest"
-	"strings"
 	"testing"
 
 	"github.com/labstack/echo/v4"
-	"github.com/stretchr/testify/assert"
 )
 
 func InitEchoTestOperator() *echo.Echo {
@@ -18,10 +18,6 @@ func InitEchoTestOperator() *echo.Echo {
 	return e
 }
 
-type OperatorResponse struct {
-	Message string
-	Data    []models.Operator
-}
 
 // func GetToken() string {
 // 	e := InitEchoTestOperator()
@@ -43,44 +39,39 @@ type OperatorResponse struct {
 // 	return fmt.Sprintf("Bearer %s", response.Token)
 // }
 
-func InsertDataUserForGetOperator() error {
-	operator := models.Operator{
-		Username: "Alta",
-		Password: "123",
-	}
+func TestPersonLogin(t *testing.T) {
+	e := initTestEcho()
+	operator1 := models.Operator{Username: "dono", Password: "rahasia"}
+	operator1.ID = int(1)
+	operator2 := models.Operator{Username: "kasino", Password: "rahasia"}
+	operator2.ID = int(2)
 
-	var err error
-	if err = config.DB.Save(&operator).Error; err != nil {
-		return err
+	// login request
+	login, err := json.Marshal(models.Operator{Username: "dono", Password: "rahasia"})
+	if err != nil {
+		t.Errorf("marshalling new person failed")
 	}
-	return nil
-}
-
-func LoginOperatorController(t *testing.T) {
-	var testCases = []struct {
-		name       string
-		path       string
-		expectCode int
-	}{
-		{
-			name:       "login normal",
-			path:       "/login",
-			expectCode: http.StatusOK,
-		},
-	}
-	e := InitEchoTestOperator()
-	InsertDataUserForGetOperator()
-	operator := `{"username": "Alta", "password": "123"}`
-	req := httptest.NewRequest(http.MethodPost, "/login", strings.NewReader(operator))
-	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	req := httptest.NewRequest(http.MethodPost, "/", bytes.NewBuffer(login))
+	req.Header.Set("Content-Type", "application/json")
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
+	c.SetPath("/login")
 
-	for _, testCase := range testCases {
-		c.SetPath(testCase.path)
-
-		if assert.NoError(t, LoginController(c)) {
-			assert.Equal(t, testCase.expectCode, rec.Code)
-		}
+	// send request
+	if err := LoginController(c); err != nil {
+		t.Errorf("should not get error, get error: %s", err)
+		return
 	}
+
+	// compare status
+	if rec.Code != 200 {
+		t.Errorf("should return 200, get: %d", rec.Code)
+	}
+
+	// compare response
+	var p models.Operator
+	if err := json.Unmarshal(rec.Body.Bytes(), &p); err != nil {
+		t.Errorf("unmarshalling returned person failed")
+	}
+
 }
