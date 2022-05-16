@@ -67,7 +67,7 @@ func TestPersonLogin(t *testing.T) {
 	if rec.Code != 200 {
 		t.Errorf("should return 200, get: %d", rec.Code)
 	}
-
+	//
 	// compare response
 	var p models.Operator
 	if err := json.Unmarshal(rec.Body.Bytes(), &p); err != nil {
