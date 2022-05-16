@@ -86,4 +86,6 @@ func InitMigrateTest() {
 	DB.AutoMigrate(&models.Dosen{})
 	DB.AutoMigrate(&models.Matakuliah{})
 	DB.AutoMigrate(&models.Ruangan{})
+	DB.AutoMigrate(&models.Operator{})
+	DB.AutoMigrate(&models.InsertJadwal{})
 }
