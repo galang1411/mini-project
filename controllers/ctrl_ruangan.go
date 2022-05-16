@@ -72,9 +72,8 @@ func DeleteRuangancontrollers(c echo.Context) error {
 
 // update ruangan by id
 func UpdateRuangancontrollers(c echo.Context) error {
-	id := c.Param("id")
+	id, _ := strconv.Atoi(c.Param("id"))
 	ruangan := models.Ruangan{}
-
 	if err := config.DB.Table("ruangan").First(&ruangan, id).Error; err != nil {
 		if err.Error() == "record not found" {
 			return c.JSON(http.StatusNotFound, map[string]interface{}{
