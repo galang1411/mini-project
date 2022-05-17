@@ -18,21 +18,21 @@ func Router() *echo.Echo {
 	// Route to Dosen handler function
 	e.GET("/dosen", controllers.GetDosenscontrollers)
 	e.GET("/dosen/:nid", controllers.GetDosencontrollers)
-	eJwt.PUT("dosen/update/:nid", controllers.UpdateDosencontrollers)
+	eJwt.PUT("/dosen/update/:nid", controllers.UpdateDosencontrollers)
 	eJwt.POST("/dosen", controllers.CreateDosencontrollers)
 	eJwt.DELETE("/dosen/:nid", controllers.DeleteDosencontrollers)
 
 	// Route to matkul handler function
 	e.GET("/matkul", controllers.GetMatkulscontrollers)
 	e.GET("/matkul/:id", controllers.GetMatkulcontrollers)
-	eJwt.PUT("matkul/update/:id", controllers.UpdateMatkulcontrollers)
+	eJwt.PUT("/matkul/:id", controllers.UpdateMatkulcontrollers)
 	eJwt.POST("/matkul", controllers.CreateMatkulcontrollers)
 	eJwt.DELETE("/matkul/:id", controllers.DeleteMatkulcontrollers)
 
 	// Route to ruangan handler function
 	e.GET("/ruangan", controllers.GetRuanganscontrollers)
 	e.GET("/ruangan/:id", controllers.GetRuangancontrollers)
-	eJwt.PUT("ruangan/update/:id", controllers.UpdateRuangancontrollers)
+	eJwt.PUT("/ruangan/:id", controllers.UpdateRuangancontrollers)
 	eJwt.POST("/ruangan", controllers.CreateRuangancontrollers)
 	eJwt.DELETE("/ruangan/:id", controllers.DeleteRuangancontrollers)
 

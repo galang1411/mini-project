@@ -29,7 +29,7 @@ func InitDB() {
 		DB_matkulname: "root",
 		DB_Password:   "gromizk123",
 		DB_Port:       "3306",
-		DB_Host:       "db",
+		DB_Host:       "localhost",
 		DB_Name:       "mini_p",
 	}
 
