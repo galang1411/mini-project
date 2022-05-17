@@ -75,7 +75,7 @@ func UpdateMatkulcontrollers(c echo.Context) error {
 	id := c.Param("id")
 	matkul := models.Matakuliah{}
 
-	if err := config.DB.Table("matakuliah").First(&matkul, id).Error; err != nil {
+	if err := config.DB.Table("matakuliah").Debug().First(&matkul, id).Debug().Error; err != nil {
 		if err.Error() == "record not found" {
 			return c.JSON(http.StatusNotFound, map[string]interface{}{
 				"message": "matkul not found",
@@ -91,7 +91,7 @@ func UpdateMatkulcontrollers(c echo.Context) error {
 	matkul.Name = newmatkul.Name
 	matkul.SKS = newmatkul.SKS
 	matkul.Semester = newmatkul.Semester
-	if err := config.DB.Table("matakuliah").Save(&matkul).Error; err != nil {
+	if err := config.DB.Table("matakuliah").Debug().Save(&matkul).Debug().Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 

@@ -13,7 +13,7 @@ func LoginController(c echo.Context) error {
 	operator := models.Operator{}
 	c.Bind(&operator)
 
-	if err := config.DB.Table("operator").Where("username = ? AND password = ?", operator.Username, operator.Password).First(&operator).Error; err != nil {
+	if err := config.DB.Table("operators").Where("username = ? AND password = ?", operator.Username, operator.Password).First(&operator).Error; err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 	//

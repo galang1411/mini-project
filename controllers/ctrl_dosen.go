@@ -93,7 +93,7 @@ func UpdateDosencontrollers(c echo.Context) error {
 	dosen.Name = newdosen.Name
 	dosen.Gender = newdosen.Gender
 	dosen.Major = newdosen.Major
-	if err := config.DB.Table("dosen").Where("nid = ?", nid).Save(&dosen).Error; err != nil {
+	if err := config.DB.Table("dosen").Where("nid = ?", nid).Debug().Save(&dosen).Debug().Error; err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
